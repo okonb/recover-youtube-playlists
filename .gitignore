@@ -1,0 +1,5 @@
+my_file.html
+*.csv
+*.json
+__pycache__/
+.mypy_cache/
