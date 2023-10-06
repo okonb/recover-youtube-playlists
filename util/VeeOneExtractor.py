@@ -4,9 +4,10 @@ from .Extractor import Extractor
 
 
 class VeeOneExtractor(Extractor):
-    def __init__(self, extra_info: bool) -> None:
+    def __init__(self, extra_info: bool, id_only: bool) -> None:
         super().__init__()
         self.extra_info = extra_info
+        self.id_only = id_only
 
     def get_header_tuple(self) -> Tuple[str, ...]:
         if self.extra_info:
@@ -42,6 +43,8 @@ class VeeOneExtractor(Extractor):
             else:
                 title = _title_list[0]
             link = video["href"]
+            if self.id_only and link is not None:
+                link = link[-11:]
             if self.extra_info:
                 _length_tag: Tag | None = video.find("div", class_="label")
                 video_length: str

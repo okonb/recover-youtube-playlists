@@ -18,6 +18,11 @@ def main():
     extra_info: bool = args.extra_info
     extractor_version: str = args.extractor
     output_format: str = args.format
+    just_links: bool = args.just_links
+    id_only: bool = args.id_only
+
+    if just_links:
+        extra_info = False
 
     print(f"Parsing file: {to_parse}...")
     try:
@@ -32,7 +37,7 @@ def main():
     extractor: Extractor
 
     if extractor_version == "auto":
-        extractor = extractor_factory(file_date_created, extra_info)
+        extractor = extractor_factory(file_date_created, extra_info, id_only)
     else:
         extractor = extractor_version_map[extractor_version](args.extra_info)
 
@@ -44,6 +49,10 @@ def main():
     playlist_title, videos_list = extractor.process(soup)
 
     header_tuple: Tuple[str, ...] = extractor.get_header_tuple()
+
+    if just_links:
+        videos_list = [(vid[1],) for vid in videos_list]
+        header_tuple = ("URL",)
 
     outfile_name: str = playlist_title + "-" + \
         datetime.now().isoformat(timespec="seconds") + "." + output_format

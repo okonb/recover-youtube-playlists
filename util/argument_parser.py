@@ -20,4 +20,9 @@ def get_argument_parser() -> ArgumentParser:
                                  help="choose output format")
     argument_parser.add_argument("-e", "--extractor", choices=["auto", "v1"],
                                  default="auto", help="choose extractor version")
+    argument_parser.add_argument("-j", "--just_links", action="store_true",
+                                 help="only export links\
+                                 to videos (may be needed for some services)")
+    argument_parser.add_argument("-id", "--id_only", action="store_true",
+                                 help="store links as video ids")
     return argument_parser

@@ -6,7 +6,7 @@ from .VeeOneExtractor import VeeOneExtractor
 extractor_version_map: dict = {"v1": VeeOneExtractor}
 
 
-def extractor_factory(file_time_created: float, extra_info: bool) -> Extractor:
+def extractor_factory(file_time_created: float, extra_info: bool, id_only: bool) -> Extractor:
     if file_time_created < mktime(datetime(day=17, month=1, year=2038).timetuple()):
-        return extractor_version_map["v1"](extra_info)
+        return extractor_version_map["v1"](extra_info, id_only)
     raise Exception("hopefully unreachable")
