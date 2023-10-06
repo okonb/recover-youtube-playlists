@@ -2,8 +2,14 @@ from argparse import ArgumentParser
 
 
 def get_argument_parser() -> ArgumentParser:
-    argument_parser = ArgumentParser(prog="./recover-playlist.py",
-        description="Recover YouTube playlists from the saved review website!")
+    argument_parser = ArgumentParser(
+        description="Recover YouTube playlists from the saved review website!\
+                     Download the content takedown website and extract the\
+                     playlist from it.\
+                     Documentation and further development at\
+                     https://github.com/okonb/recover-youtube-playlists",
+        epilog="Copyright (c) 2023 Bartosz Okoń"
+        )
     argument_parser.add_argument("filename",
                                  help="HTML file to be processed")
     argument_parser.add_argument("-v", "--verbose", action="store_true",

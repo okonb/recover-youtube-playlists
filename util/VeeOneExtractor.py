@@ -16,7 +16,8 @@ class VeeOneExtractor(Extractor):
     def process(self, soup: BeautifulSoup) -> Tuple[str, List[Tuple]]:
         _first_vid_tag: Tag | None = soup.find("a", class_="video-link")
         if _first_vid_tag is None:
-            raise Exception(f"HTML file format invalid, please refer to {'website TODO'}")
+            raise Exception(f"HTML file format invalid, please refer to\n\t\
+                            {'https://github.com/okonb/recover-youtube-playlists'}")
 
         videos_object: Tag | None = _first_vid_tag.parent
         if videos_object is None:
