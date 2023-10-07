@@ -3,3 +3,4 @@ my_file.html
 *.json
 __pycache__/
 .mypy_cache/
+last.log

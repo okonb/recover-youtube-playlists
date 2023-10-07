@@ -25,4 +25,8 @@ def get_argument_parser() -> ArgumentParser:
                                  to videos (may be needed for some services)")
     argument_parser.add_argument("-id", "--id_only", action="store_true",
                                  help="store links as video ids")
+    argument_parser.add_argument("-l", "--log",
+                                 help="choose logging level",
+                                 choices=["DEBUG", "INFO", "WARNING", "ERROR",
+                                          "CRITICAL"], default="CRITICAL")
     return argument_parser
