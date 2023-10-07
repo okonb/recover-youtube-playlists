@@ -1,4 +1,5 @@
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from .extractor_factory import extractor_version_map
 
 
 def get_argument_parser() -> ArgumentParser:
@@ -16,7 +17,8 @@ def get_argument_parser() -> ArgumentParser:
                                  choices=["csv", "excel-csv", "json"],
                                  default="csv", help="choose output format")
     argument_parser.add_argument("--extractor",
-                                 choices=["auto", "v1"],
+                                 choices=["auto"] +
+                                 list(extractor_version_map.keys()),
                                  default="auto",
                                  help="choose extractor version")
     argument_parser.add_argument("--extra-info", action="store_true",

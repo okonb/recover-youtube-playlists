@@ -1,7 +1,7 @@
 # Recover YouTube playlists
 
 Has YouTube unrightfully removed your beloved playlist you've curated for the past 10 years?
-Well then worry not, as you will most likely able to recover it!
+Well then worry not, as you will most likely be able to recover it!
 
 ## READ THIS pretty please
 
@@ -29,7 +29,13 @@ After cloning, execute `make` or `pip3 install -r requirements.txt`
 .
 ### Running 
 ```
-python3 recover_playlist.py filename [-h] [--format {csv,excel-csv,json}] [--extractor {auto,v1}] [--extra-info] [--just-links] [--ids-only] [--log {DEBUG,INFO,WARNING,ERRORCRITICAL}]
+python3 recover_playlist.py filename  [-h]
+                                      [--format {csv,excel-csv,json}]
+                                      [--extractor {auto,v1}]
+                                      [--extra-info]
+                                      [--just-links]
+                                      [--ids-only]
+                                      [--log {DEBUG,INFO,WARNING,ERRORCRITICAL}]
 
 positional arguments:
   filename              HTML file to be processed
@@ -49,9 +55,9 @@ options:
 
 ## Technical stuff
 
-This project is just an overengineered version of what could have been two-pages worth of Python; and I'm sure there are better ways to write most of constructs I've used.
+This project is just an overengineered version of what could have been two-pages worth of Python; and I'm sure there are better ways to write most of what I've used.
 
-What we gain from all this though is easy extensability. YouTube updated their interface and the extractor no longer works? Write a new one, add it to the factory and arguments parser, and you're set.
+What we gain from all this though is easy extendability. YouTube updated their interface and the extractor no longer works? Write a new one, add it to the factory and you're set.
 
 There is currently no testing because I don't think it makes sense to test for something as ephemeral as website scraping. Providing test files is also difficult when you only ever had one of your playlists removed AND poses some privacy concerns. :) This may change if the project grows beyond something quick and dirty.
 
