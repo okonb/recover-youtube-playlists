@@ -20,7 +20,7 @@ def main():
     extractor_version: str = args.extractor
     output_format: str = args.format
     just_links: bool = args.just_links
-    id_only: bool = args.id_only
+    ids_only: bool = args.ids_only
     log: str = args.log
 
     loglevel = getattr(logging, log.upper())
@@ -31,7 +31,7 @@ def main():
         logging.debug("just links mode")
         extra_info = False
 
-    if id_only:
+    if ids_only:
         logging.debug("id only mode")
 
     print(f"Parsing file: {to_parse}...")
@@ -54,7 +54,7 @@ def main():
     extractor: Extractor
 
     if extractor_version == "auto":
-        extractor = extractor_factory(file_date_created, extra_info, id_only)
+        extractor = extractor_factory(file_date_created, extra_info, ids_only)
     else:
         extractor = extractor_version_map[extractor_version](args.extra_info)
 

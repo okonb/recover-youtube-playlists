@@ -22,10 +22,10 @@ def get_argument_parser() -> ArgumentParser:
     argument_parser.add_argument("--extra-info", action="store_true",
                                  help="store extra information available in \
                                        the file")
-    argument_parser.add_argument("--just_links", action="store_true",
+    argument_parser.add_argument("--just-links", action="store_true",
                                  help="only export links\
                                  to videos (may be needed for some services)")
-    argument_parser.add_argument("--id_only", action="store_true",
+    argument_parser.add_argument("--ids-only", action="store_true",
                                  help="store links as video ids")
     argument_parser.add_argument("--log",
                                  choices=["DEBUG", "INFO", "WARNING", "ERROR",

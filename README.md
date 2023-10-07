@@ -23,11 +23,11 @@ Now after you've read the important stuff, you can move on to recovering your pl
 ### Requirements
 Python 3 and pip3 are required.
 
-After cloning execute `make` or `pip3 install -r requirements.txt`
+After cloning, execute `make` or `pip3 install -r requirements.txt`
 .
 ### Running 
 ```
-python3 recover_playlist.py filename [-h] [--format {csv,excel-csv,json}] [--extractor {auto,v1}] [--extra-info] [--just_links] [--id_only] [--log {DEBUG,INFO,WARNING,ERRORCRITICAL}]
+python3 recover_playlist.py filename [-h] [--format {csv,excel-csv,json}] [--extractor {auto,v1}] [--extra-info] [--just-links] [--ids-only] [--log {DEBUG,INFO,WARNING,ERRORCRITICAL}]
 
 positional arguments:
   filename              HTML file to be processed
@@ -40,8 +40,19 @@ options:
                         choose extractor version (default: auto)
   --extra-info          store extra information available in the file (default: False)
   --just_links          only export links to videos (may be needed for some services) (default: False)
-  --id_only             store links as video ids (default: False)
+  --ids_only             store links as video ids (default: False)
   --log {DEBUG,INFO,WARNING,ERROR,CRITICAL}
                         choose logging level (default: CRITICAL)
 ```
 
+## Technical stuff
+
+This project is just an overengineered version of what could have been two-pages worth of Python; and I'm sure there are better ways to write most of constructs I've used.
+
+What we gain from all this though is easy extensability. YouTube updated their interface and the extractor no longer works? Write a new one, add it to the factory and arguments parser, and you're set.
+
+There is currently no testing because I don't think it makes sense to test for something as ephemeral as website scraping. Providing test files is also difficult when you only ever had one of your playlists removed AND poses some privacy concerns. :) This may change if the project grows beyond something quick and dirty.
+
+## Contributing (?)
+
+Issues and pull requests are very welcome, it would be awesome if this project could help people for as long as possible! Just please don't mind waiting a bit for a response, I can't guarantee that I'll always be available. :)
