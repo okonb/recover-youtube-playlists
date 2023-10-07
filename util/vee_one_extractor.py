@@ -1,7 +1,7 @@
 import logging
 from typing import List, Tuple
-from bs4 import BeautifulSoup, Tag
-from .Extractor import Extractor
+from bs4 import BeautifulSoup, Tag, PageElement
+from .extractor import Extractor
 
 
 class VeeOneExtractor(Extractor):
@@ -12,11 +12,11 @@ class VeeOneExtractor(Extractor):
 
     def get_header_tuple(self) -> Tuple[str, ...]:
         if self.extra_info:
-            return ("Id", "Title", "Length", "URL", "Thumbnail file")
-        return ("Title", "URL")
+            return ("id", "title", "duration", "url", "thumbnail")
+        return ("title", "url")
 
-    def process(self, soup: BeautifulSoup) -> Tuple[str, List[Tuple]]:
-        _first_vid_tag: Tag | None = soup.find("a", class_="video-link")
+    def process(self, soup: BeautifulSoup) -> Tuple[str, List[Tuple[str, ...]]]:
+        _first_vid_tag: Tag | None = soup.find("a", class_="video-link") # type: ignore
         if _first_vid_tag is None:
             logging.critical("no _first_vid_tag")
             raise Exception(f"HTML file format invalid, please refer to\n\t\
@@ -28,14 +28,14 @@ class VeeOneExtractor(Extractor):
             raise Exception("First video has no parent (?)")
 
         playlist_title: str
-        _playlist_title_tag: Tag | None = videos_object.find("div", class_="playlist-title")
+        _playlist_title_tag: Tag | None = videos_object.find("div", class_="playlist-title") # type: ignore
         if _playlist_title_tag is None or len(_playlist_title_tag.contents) != 1:
             logging.warning("can't extract playlist title")
             playlist_title = "Unknown playlist"
         else:
             playlist_title = str(_playlist_title_tag.contents[0])
 
-        videos_list: List[Tuple] = []
+        videos_list: List[Tuple[str, ...]] = []
 
         for i, video in enumerate(videos_object.find_all("a", class_="video-link")):
             if video is None:
@@ -45,13 +45,13 @@ class VeeOneExtractor(Extractor):
             if _title_tag is None:
                 logging.warning("skipping video %d (_title_tag = None)", i)
                 continue
-            _title_list: List[str] = _title_tag.contents
+            _title_list: List[PageElement] = _title_tag.contents
             title: str
             if len(_title_list) != 1:
                 logging.warning("can't extract video %d title", i)
                 title = "Unknown"
             else:
-                title = _title_list[0]
+                title = str(_title_list[0])
             link = video["href"]
             if link is None:
                 logging.warning("link on video %d is None", i)

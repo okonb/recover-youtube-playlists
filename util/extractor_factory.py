@@ -1,7 +1,7 @@
 from datetime import datetime
 from time import mktime
-from .Extractor import Extractor
-from .VeeOneExtractor import VeeOneExtractor
+from .extractor import Extractor
+from .vee_one_extractor import VeeOneExtractor
 
 extractor_version_map: dict = {"v1": VeeOneExtractor}
 

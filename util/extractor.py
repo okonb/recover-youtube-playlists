@@ -9,10 +9,10 @@ class Extractor(ABC):
         pass
 
     @abstractmethod
-    def process(self, soup: BeautifulSoup) -> Tuple[str, List[Tuple]]:
+    def process(self, soup: BeautifulSoup) -> Tuple[str, List[Tuple[str, ...]]]:
         pass
 
     @classmethod
     @abstractmethod
-    def version_str() -> str:
+    def version_str(cls) -> str:
         pass
