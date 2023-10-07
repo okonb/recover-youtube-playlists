@@ -58,13 +58,13 @@ class VeeOneExtractor(Extractor):
             elif self.id_only:
                 link = link[-11:]
             if self.extra_info:
-                _length_tag: Tag | None = video.find("div", class_="label")
-                video_length: str
-                if _length_tag is not None and len(_length_tag.contents) == 1:
-                    video_length = str(_length_tag.contents[0]).strip()
+                _duration_tag: Tag | None = video.find("div", class_="label")
+                video_duration: str
+                if _duration_tag is not None and len(_duration_tag.contents) == 1:
+                    video_duration = str(_duration_tag.contents[0]).strip()
                 else:
-                    logging.warning("can't extract video %d length", i)
-                    video_length = "Unknown"
+                    logging.warning("can't extract video %d duration", i)
+                    video_duration = "Unknown"
                 _index_tag: Tag | None = video.find("div", class_="video-index")
                 video_index: str
                 if _index_tag is not None and len(_index_tag.contents) == 1:
@@ -79,7 +79,7 @@ class VeeOneExtractor(Extractor):
                 else:
                     logging.warning("can't extract video %d thumbnail", i)
                     thumbnail_source = "Unknown"
-                videos_list.append((video_index, title, video_length, link,
+                videos_list.append((video_index, title, video_duration, link,
                                     thumbnail_source))
             else:
                 videos_list.append((title, link))

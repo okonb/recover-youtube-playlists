@@ -19,9 +19,11 @@ This software is provided under the MIT license and the author does not guarante
 
 Now after you've read the important stuff, you can move on to recovering your playlist by following the [✨instructions✨](docs/instructions.md).
 
+The FAQ is [here](docs/FAQ.md).
+
 ## Usage
 ### Requirements
-Python 3 and pip3 are required.
+Python 3 (works with Python 3.10.12) and pip3 are required.
 
 After cloning, execute `make` or `pip3 install -r requirements.txt`
 .
