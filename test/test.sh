@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$1" = "--no-remove" ]
 then
@@ -54,7 +54,7 @@ do
 
             print_testcase $extractor_version $stripped_testfile $fileformat
 
-            eval $current_test_command # 2>/dev/null 1>/dev/null    # uncomment if you feel like it
+            eval $current_test_command 1>/dev/null # 2>/dev/null   # uncomment if you feel like it
             
             if test $? -ne 0
             then
