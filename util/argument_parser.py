@@ -21,6 +21,8 @@ def get_argument_parser() -> ArgumentParser:
                                  list(extractor_version_map.keys()),
                                  default="auto",
                                  help="choose extractor version")
+    argument_parser.add_argument("-o", "--output-filename",
+                                 help="output file name")
     argument_parser.add_argument("--extra-info", action="store_true",
                                  help="store extra information available in \
                                        the file")

@@ -1,13 +1,13 @@
 # Recover YouTube playlists
 
-Has YouTube unrightfully removed your beloved playlist you've curated for the past 10 years?
-Well then worry not, as you will most likely be able to recover it!
+Has YouTube unrightfully removed your beloved playlist you've been curating for the past 10 years?
+Don't worry, you will most likely be able to recover it!
 
 ## READ THIS pretty please
 
-This project aims to provide a way to extract and save the list of videos from your removed playlist. It can do this because YouTube shows you all the videos from a removed playlist in the content review website.
+This project aims to provide a way to extract and save a list of videos from your removed playlist. It can do this because YouTube shows you all the videos from a removed playlist in the content review website.
 
-What you get at the end is a human- and computer-readable file containing titles, links (and more) of videos on your playlist. For example, you can open the resulting csv file in Google Spreadsheets and it will even let you click the links!
+What you get at the end is a human- and computer-readable file containing titles, links (and more) of videos on your playlist. For example, you can open the resulting csv file in Google Spreadsheets and it will even let you click links!
 
 The goal of this project though is not uploading the recovered playlist back to your YouTube account. I can't recommend doing so as this might trigger YouTube's deletion evasion detection and get you in even more trouble...
 
@@ -32,6 +32,7 @@ After cloning, execute `make` or `pip3 install -r requirements.txt`
 python3 recover_playlist.py filename  [-h]
                                       [--format {csv,excel-csv,json}]
                                       [--extractor {auto,v1}]
+                                      [-o OUTPUT_FILENAME]
                                       [--extra-info]
                                       [--just-links]
                                       [--ids-only]
@@ -46,6 +47,8 @@ options:
                         choose output format (default: csv)
   --extractor {auto,v1}
                         choose extractor version (default: auto)
+  -o OUTPUT_FILENAME, --output-filename OUTPUT_FILENAME
+                        output file name (default: None)
   --extra-info          store extra information available in the file (default: False)
   --just_links          only export links to videos (may be needed for some services) (default: False)
   --ids_only             store links as video ids (default: False)

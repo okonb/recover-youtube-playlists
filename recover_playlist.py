@@ -5,6 +5,7 @@ import logging
 from argparse import Namespace
 from typing import Tuple, List
 from datetime import datetime
+from sanitize_filename import sanitize as fn_sanitize
 from bs4 import BeautifulSoup
 from util.extractor import Extractor
 from util.argument_parser import get_argument_parser
@@ -22,6 +23,7 @@ def main():
     just_links: bool = args.just_links
     ids_only: bool = args.ids_only
     log: str = args.log
+    given_outfilename: str | None = args.output_filename
 
     loglevel = getattr(logging, log.upper())
     logging.basicConfig(filename="last.log", encoding='utf-8', level=loglevel,
@@ -33,6 +35,14 @@ def main():
 
     if ids_only:
         logging.debug("id only mode")
+
+    if given_outfilename is not None and \
+            given_outfilename != fn_sanitize(given_outfilename):
+
+        print("Provided output file name is not of correct format, exiting.")
+        logging.critical("provided output filename %s not correct",
+                         given_outfilename)
+        sys.exit(1)
 
     print(f"Parsing file: {to_parse}...")
     logging.info("parsing %s", to_parse)
@@ -80,21 +90,29 @@ def main():
     file_extension: str = output_format if output_format != "excel-csv" \
         else "csv"
 
-    outfile_name: str = playlist_title + "-" + \
-        datetime.now().isoformat(timespec="seconds") + "." + file_extension
+    outfile_name: str
+    if given_outfilename is not None:
+        outfile_name = given_outfilename
+    else:
+        outfile_name = playlist_title + "-" + \
+            datetime.now().isoformat(timespec="seconds").replace(':', '-') + \
+            "." + file_extension
+        outfile_name = fn_sanitize(outfile_name)
 
     print(f"Saving to {outfile_name} using {output_format} writer...")
     logging.info("writing to %s, selected format %s",
                  outfile_name, output_format)
     try:
         with open(outfile_name, 'w', encoding='utf-8', newline='') as file:
-            match output_format:
-                case "csv":
-                    write_csv(file, header_tuple, videos_list)
-                case "excel-csv":
-                    write_excel_csv(file, header_tuple, videos_list)
-                case "json":
-                    write_json(file, header_tuple, videos_list)
+            # a match would be cooler but i changed it for compatibility
+            if output_format == "csv":
+                write_csv(file, header_tuple, videos_list)
+            elif output_format == "excel-csv":
+                write_excel_csv(file, header_tuple, videos_list)
+            elif output_format == "json":
+                write_json(file, header_tuple, videos_list)
+            else:
+                raise Exception(f"Chosen file format {output_format} unknown.")
     except IOError as e:
         print("Couldn't save the playlist file, exiting.")
         logging.exception("can't write to %s; exception: %s", outfile_name, e)
