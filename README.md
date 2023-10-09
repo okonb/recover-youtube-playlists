@@ -1,7 +1,7 @@
 # Recover YouTube playlists
 
 Has YouTube unrightfully removed your beloved playlist you've been curating for the past 10 years?
-Don't worry, you will most likely be able to recover it!
+Don't worry, you are most likely able to recover it!
 
 ## READ THIS pretty please
 
@@ -23,7 +23,7 @@ The FAQ is [here](docs/FAQ.md).
 
 ## Usage
 ### Requirements
-Python 3 (works with Python 3.10.12) and pip3 are required.
+Python version 3.9 or later.
 
 After cloning, execute `make` or `pip3 install -r requirements.txt`
 .

@@ -34,7 +34,6 @@ echo Running tests
 
 for extractor_version in `ls $TESTFILES_DIR | grep v[0-9+]`
 do
-    echo ""
     current_extractor_path="$TESTFILES_DIR/$extractor_version"
     for testfile in `ls $current_extractor_path | grep testfile_[0-9+]\.html`
     do
@@ -55,8 +54,7 @@ do
 
             print_testcase $extractor_version $stripped_testfile $fileformat
 
-            # echo $current_test_command
-            eval $current_test_command # 2>/dev/null 1>/dev/null
+            eval $current_test_command # 2>/dev/null 1>/dev/null    # uncomment if you feel like it
             
             if test $? -ne 0
             then
@@ -107,7 +105,7 @@ fi
 
 if test -z "$NO_REMOVE"
 then
-    rm $to_remove extra.json
+    rm -f $to_remove extra.json
 fi
 
 exit $exit_code
