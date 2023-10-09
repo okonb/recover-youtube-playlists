@@ -31,6 +31,8 @@ def get_argument_parser() -> ArgumentParser:
                                  to videos (may be needed for some services)")
     argument_parser.add_argument("--ids-only", action="store_true",
                                  help="store links as video ids")
+    argument_parser.add_argument("--no-lxml", action="store_true",
+                                 help="don't use lxml")
     argument_parser.add_argument("--log",
                                  choices=["DEBUG", "INFO", "WARNING", "ERROR",
                                           "CRITICAL"],

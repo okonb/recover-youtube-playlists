@@ -47,9 +47,15 @@ def main():
     print(f"Parsing file: {to_parse}...")
     logging.info("parsing %s", to_parse)
 
+    parser_name: str = "lxml"
+    if args.no_lxml:
+        parser_name = "html.parser"
+        print("Using slow HTML parser, this might take a while...")
+        logging.info("using html.parser")
+
     try:
         with open(to_parse, 'r', encoding='utf-8') as file:
-            soup: BeautifulSoup = BeautifulSoup(file, features="lxml")
+            soup: BeautifulSoup = BeautifulSoup(file, features=parser_name)
     except FileNotFoundError as e:
         logging.critical("File %s not found; %s", to_parse, e)
         print(e)

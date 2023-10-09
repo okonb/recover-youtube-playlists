@@ -36,6 +36,7 @@ python3 recover_playlist.py filename  [-h]
                                       [--extra-info]
                                       [--just-links]
                                       [--ids-only]
+                                      [--no-lxml]
                                       [--log {DEBUG,INFO,WARNING,ERRORCRITICAL}]
 
 positional arguments:
@@ -51,7 +52,8 @@ options:
                         output file name (default: None)
   --extra-info          store extra information available in the file (default: False)
   --just_links          only export links to videos (may be needed for some services) (default: False)
-  --ids_only             store links as video ids (default: False)
+  --ids_only            store links as video ids (default: False)
+  --no-lxml             don't use lxml (default: False)
   --log {DEBUG,INFO,WARNING,ERROR,CRITICAL}
                         choose logging level (default: CRITICAL)
 ```

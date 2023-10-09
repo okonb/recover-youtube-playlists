@@ -10,14 +10,18 @@ Now, press ctrl+s or right-click somewhere and chose "Save". In the new window, 
 
 Make sure you have Python 3 installed.
 
-After cloning the repository, simply execute `make` in the repository root folder.
+After cloning the repository, execute the appropriate setup command.
 
-If that shows you an error, execute this command:
+If you're on Linux, execute `make` in the repository root folder.
+
+If you're on Windows, execute this command:
 ```
 pip3 install -r requirements.txt
 ```
+If the above command gives you an error related to lxml, use the `--no-lxml` option at the end of the next command.
 
 If `python3` and `pip3` don't seem to work for you, try `python` and `pip`.
+
 
 Let's say you want an excel-friendly csv file with additional information like video duration. The command to run is:
 ```sh
