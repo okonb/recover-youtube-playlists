@@ -9,7 +9,11 @@ class Extractor(ABC):
         pass
 
     @abstractmethod
-    def process(self, soup: BeautifulSoup) -> Tuple[str, List[Tuple[str, ...]]]:
+    def get_video_list(self, soup: BeautifulSoup) -> List[Tuple[str, ...]]:
+        pass
+
+    @abstractmethod
+    def get_playlist_info(self, soup: BeautifulSoup) -> dict:
         pass
 
     @classmethod

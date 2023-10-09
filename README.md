@@ -37,7 +37,8 @@ python3 recover_playlist.py filename  [-h]
                                       [--just-links]
                                       [--ids-only]
                                       [--no-lxml]
-                                      [--log {DEBUG,INFO,WARNING,ERRORCRITICAL}]
+                                      [--write-info]
+                                      [--log {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
 
 positional arguments:
   filename              HTML file to be processed
@@ -54,6 +55,7 @@ options:
   --just_links          only export links to videos (may be needed for some services) (default: False)
   --ids_only            store links as video ids (default: False)
   --no-lxml             don't use lxml (default: False)
+  --write-info          write playlist info to a separate file (default: False)
   --log {DEBUG,INFO,WARNING,ERROR,CRITICAL}
                         choose logging level (default: CRITICAL)
 ```
@@ -64,7 +66,15 @@ This project is just an overengineered version of what could have been two-pages
 
 What we gain from all this though is easy extendability. YouTube updated their interface and the extractor no longer works? Write a new one, add it to the factory and you're set.
 
-There is currently no testing because I don't think it makes sense to test for something as ephemeral as website scraping. Providing test files is also difficult when you only ever had one of your playlists removed AND poses some privacy concerns. :) This may change if the project grows beyond something quick and dirty.
+## Testing
+You can run tests by executing commands:
+```
+cd test
+chmod +x ./text.sh
+./test.sh
+```
+This script performs simple output tests for files defined in the `testfiles` directory.
+You can run the script with `--no-remove` argument to stop it from removing files produced by the tests.
 
 ## Contributing (?)
 

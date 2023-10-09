@@ -1,6 +1,8 @@
 my_file.html
-*.csv
-*.json
+/*.csv
+/*.json
 __pycache__/
 .mypy_cache/
 last.log
+/test/output/
+test/extra.json

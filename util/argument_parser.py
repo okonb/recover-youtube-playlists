@@ -33,6 +33,8 @@ def get_argument_parser() -> ArgumentParser:
                                  help="store links as video ids")
     argument_parser.add_argument("--no-lxml", action="store_true",
                                  help="don't use lxml")
+    argument_parser.add_argument("--write-info", action="store_true",
+                                 help="write playlist info to a separate file")
     argument_parser.add_argument("--log",
                                  choices=["DEBUG", "INFO", "WARNING", "ERROR",
                                           "CRITICAL"],

@@ -2,6 +2,7 @@
 import os
 import sys
 import logging
+import json
 from argparse import Namespace
 from typing import Tuple, List
 from datetime import datetime
@@ -24,6 +25,7 @@ def main():
     ids_only: bool = args.ids_only
     log: str = args.log
     given_outfilename: str | None = args.output_filename
+    write_info: bool = args.write_info
 
     loglevel = getattr(logging, log.upper())
     logging.basicConfig(filename="last.log", encoding='utf-8', level=loglevel,
@@ -36,13 +38,14 @@ def main():
     if ids_only:
         logging.debug("id only mode")
 
-    if given_outfilename is not None and \
-            given_outfilename != fn_sanitize(given_outfilename):
-
-        print("Provided output file name is not of correct format, exiting.")
-        logging.critical("provided output filename %s not correct",
-                         given_outfilename)
-        sys.exit(1)
+    if given_outfilename is not None:
+        given_outfilename = given_outfilename.strip("\'\"")
+        given_just_filename: str = given_outfilename.rsplit("/", 1)[-1]
+        if given_just_filename != fn_sanitize(given_just_filename):
+            print("Provided output file name is not of correct format, exiting.")
+            logging.critical("provided output filename %s not correct",
+                            given_outfilename)
+            sys.exit(1)
 
     print(f"Parsing file: {to_parse}...")
     logging.info("parsing %s", to_parse)
@@ -72,7 +75,8 @@ def main():
     if extractor_version == "auto":
         extractor = extractor_factory(file_date_created, extra_info, ids_only)
     else:
-        extractor = extractor_version_map[extractor_version](args.extra_info)
+        extractor = extractor_version_map[extractor_version](args.extra_info,
+                                                             ids_only)
 
     print(f"Extracting using {extractor.version_str()} extractor...")
     logging.info("using %s extractor, setting %s, file date %s",
@@ -80,9 +84,23 @@ def main():
                  datetime.fromtimestamp(file_date_created))
 
     playlist_title: str
+    playlist_info: dict
     videos_list: List[Tuple[str, ...]]
 
-    playlist_title, videos_list = extractor.process(soup)
+    try:
+        playlist_info = extractor.get_playlist_info(soup)
+        videos_list = extractor.get_video_list(soup)
+    except Exception as e:
+        print("Couldn't extract videos.\n", e)
+        logging.critical("extractor failed to extract data from soup")
+        sys.exit(1)
+
+    print("Playlist info:")
+    for key, value in playlist_info.items():
+        print(f"\t{key}: {value}")
+    print()
+
+    playlist_title = playlist_info["playlist_title"]
 
     header_tuple: Tuple[str, ...] = extractor.get_header_tuple()
 
@@ -90,8 +108,8 @@ def main():
         videos_list = [(vid[1],) for vid in videos_list]
         header_tuple = ("URL",)
 
-    logging.info("extracted data. playlist title %s, header tuple %s",
-                 playlist_title, header_tuple)
+    logging.info("extracted data. playlist info %s, header tuple %s",
+                 playlist_info, header_tuple)
 
     file_extension: str = output_format if output_format != "excel-csv" \
         else "csv"
@@ -119,6 +137,10 @@ def main():
                 write_json(file, header_tuple, videos_list)
             else:
                 raise Exception(f"Chosen file format {output_format} unknown.")
+        if write_info:
+            logging.info("writing playlist info to extra.json")
+            with open("extra.json", 'w', encoding='utf-8') as extra_file:
+                json.dump(playlist_info, extra_file)
     except IOError as e:
         print("Couldn't save the playlist file, exiting.")
         logging.exception("can't write to %s; exception: %s", outfile_name, e)
