@@ -11,4 +11,4 @@ def extractor_factory(file_time_created: float, extra_info: bool, id_only: bool)
     # v1 extractor no longer works
     if file_time_created < mktime(datetime(day=17, month=1, year=2038).timetuple()):
         return extractor_version_map[VeeOneExtractor.version_str()](extra_info, id_only)
-    raise Exception("this script has expired, fix it")
+    raise RuntimeError("this script has expired, fix it")

@@ -20,7 +20,7 @@ class Extractor(ABC):
     def get_playlist_info(self, soup: BeautifulSoup) -> InfoDict:
         pass
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def version_str(cls) -> str:
+    def version_str() -> str:
         pass

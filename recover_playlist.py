@@ -59,12 +59,12 @@ def main():
     try:
         with open(to_parse, 'r', encoding='utf-8') as file:
             soup: BeautifulSoup = BeautifulSoup(file, features=parser_name)
-    except FileNotFoundError as e:
-        logging.critical("File %s not found; %s", to_parse, e)
-        print(e)
+    except FileNotFoundError as ex:
+        logging.critical("File %s not found; %s", to_parse, ex)
+        print(ex)
         sys.exit(1)
-    except Exception as e:
-        logging.critical("couldn't parse html; %s", e)
+    except RuntimeError as ex:
+        logging.critical("couldn't parse html; %s", ex)
         print("Couldn't parse the HTML file, exiting.")
         sys.exit(1)
 
@@ -90,8 +90,8 @@ def main():
     try:
         playlist_info = extractor.get_playlist_info(soup)
         videos_list = extractor.get_video_list(soup)
-    except Exception as e:
-        print("Couldn't extract videos.\n", e)
+    except RuntimeError as ex:
+        print("Couldn't extract videos.\n", ex)
         logging.critical("extractor failed to extract data from soup")
         sys.exit(1)
 
@@ -136,19 +136,19 @@ def main():
             elif output_format == "json":
                 write_json(file, header_tuple, videos_list)
             else:
-                raise Exception(f"Chosen file format {output_format} unknown.")
+                raise RuntimeError(f"Chosen file format {output_format} unknown.")
         if write_info:
             logging.info("writing playlist info to extra.json")
             with open("extra.json", 'w', encoding='utf-8') as extra_file:
                 json.dump(playlist_info, extra_file)
-    except IOError as e:
+    except IOError as ex:
         print("Couldn't save the playlist file, exiting.")
-        logging.exception("can't write to %s; exception: %s", outfile_name, e)
+        logging.exception("can't write to %s; exception: %s", outfile_name, ex)
         sys.exit(1)
-    except Exception as e:
+    except RuntimeError as ex:
         print("Couldn't save the playlist file, exiting.")
         logging.exception("some error writing file: %s; %s",
-                          sys.exc_info()[0], e)
+                          sys.exc_info()[0], ex)
 
     print(f"Successfully extracted {len(videos_list)} videos! Exiting.")
     logging.info("success extracting %d videos", len(videos_list))

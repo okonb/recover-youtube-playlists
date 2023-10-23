@@ -23,7 +23,7 @@ class VeeOneExtractor(Extractor):
         videos_object: Tag | None = self._get_videos_object(soup)
         if videos_object is None:
             logging.critical("no videos_object")
-            raise Exception("First video has no parent (?)")
+            raise RuntimeError("First video has no parent (?)")
 
         videos_list: List[Tuple[str, ...]] = []
 
@@ -80,14 +80,14 @@ class VeeOneExtractor(Extractor):
     def get_playlist_info(self, soup: BeautifulSoup) -> VeeOneInfoDict:
         videos_object: Tag | None = self._get_videos_object(soup)
         playlist_title: str
-        _playlist_title_tag: Tag | None = videos_object.find("div", class_="playlist-title") # type: ignore
+        _playlist_title_tag: Tag | None = videos_object.find("div", class_="playlist-title")  # type: ignore
         if _playlist_title_tag is None or len(_playlist_title_tag.contents) != 1:
             logging.warning("can't extract playlist title")
             playlist_title = "Unknown playlist"
         else:
             playlist_title = str(_playlist_title_tag.contents[0]).strip()
 
-        _playlist_description_tag: Tag | None = videos_object.find("yt-formatted-string")
+        _playlist_description_tag: Tag | None = videos_object.find("yt-formatted-string")  # type: ignore
         playlist_description: str
         if _playlist_description_tag is None or len(_playlist_description_tag.contents) != 1:
             logging.warning("can't extract playlist description")
@@ -95,7 +95,7 @@ class VeeOneExtractor(Extractor):
         else:
             playlist_description = str(_playlist_description_tag.contents[0]).strip()
 
-        _reported_length_tag: Tag | None = videos_object.find("span", class_="playlist-size")
+        _reported_length_tag: Tag | None = videos_object.find("span", class_="playlist-size")  # type: ignore
         reported_length: str
         if _reported_length_tag is None or len(_reported_length_tag.contents) != 1:
             logging.warning("can't extract playlist reported length")
@@ -109,18 +109,15 @@ class VeeOneExtractor(Extractor):
             "reported_length": reported_length
         }
 
-
-    def get_playlist_info_header_tuple(self) -> Tuple[str, ...]:
-        pass
-
-    @classmethod
-    def version_str(cls) -> str:
+    @staticmethod
+    def version_str() -> str:
         return "v1"
 
-    def _get_videos_object(self, soup: BeautifulSoup) -> Tag:
-        _first_vid_tag: Tag | None = soup.find("a", class_="video-link") # type: ignore
+    @staticmethod
+    def _get_videos_object(soup: BeautifulSoup) -> Tag | None:
+        _first_vid_tag: Tag | None = soup.find("a", class_="video-link")  # type: ignore
         if _first_vid_tag is None:
             logging.critical("no _first_vid_tag")
-            raise Exception("HTML file format invalid, please refer to\n\t" +
+            raise RuntimeError("HTML file format invalid, please refer to\n\t" +
                             "https://github.com/okonb/recover-youtube-playlists")
         return _first_vid_tag.parent
