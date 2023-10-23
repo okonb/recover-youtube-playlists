@@ -70,7 +70,7 @@ def main():
 
     file_date_created: float = os.path.getctime(to_parse)
 
-    extractor: Extractor = extractor_factory(22,
+    extractor: Extractor = extractor_factory(extractor_version,
                                              file_date_created,
                                              extra_info, ids_only)
 

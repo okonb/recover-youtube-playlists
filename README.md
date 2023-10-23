@@ -27,7 +27,8 @@ The FAQ is [here](docs/FAQ.md).
 ### Requirements
 Python version 3.9 or later.
 
-After cloning, execute `make` or `pip3 install -r requirements.txt`
+After cloning, execute `make` to install dependencies and set up scripts
+and git hooks. Alternatively, execute `pip3 install -r requirements.txt`
 .
 ### Running 
 ```
