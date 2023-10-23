@@ -4,9 +4,12 @@ from typing import List, Tuple
 from bs4 import BeautifulSoup, Tag, PageElement
 from .extractor import Extractor, InfoDict
 
+
 class VeeOneInfoDict(InfoDict):
+    # playlist_title: str (inherited)
     playlist_description: str
     reported_length: str
+
 
 class VeeOneExtractor(Extractor):
     def __init__(self, extra_info: bool, id_only: bool) -> None:

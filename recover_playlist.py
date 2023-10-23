@@ -10,7 +10,7 @@ from sanitize_filename import sanitize as fn_sanitize
 from bs4 import BeautifulSoup
 from util.extractor import Extractor, InfoDict
 from util.argument_parser import get_argument_parser
-from util.extractor_factory import extractor_factory, extractor_version_map
+from util.extractor_factory import extractor_factory
 from util.file_writers import write_csv, write_excel_csv, write_json
 
 
@@ -63,20 +63,16 @@ def main():
         logging.critical("File %s not found; %s", to_parse, ex)
         print(ex)
         sys.exit(1)
-    except RuntimeError as ex:
+    except Exception as ex:     # pylint: disable=broad-except
         logging.critical("couldn't parse html; %s", ex)
         print("Couldn't parse the HTML file, exiting.")
         sys.exit(1)
 
     file_date_created: float = os.path.getctime(to_parse)
 
-    extractor: Extractor
-
-    if extractor_version == "auto":
-        extractor = extractor_factory(file_date_created, extra_info, ids_only)
-    else:
-        extractor = extractor_version_map[extractor_version](args.extra_info,
-                                                             ids_only)
+    extractor: Extractor = extractor_factory(22,
+                                             file_date_created,
+                                             extra_info, ids_only)
 
     print(f"Extracting using {extractor.version_str()} extractor...")
     logging.info("using %s extractor, setting %s, file date %s",
@@ -98,7 +94,6 @@ def main():
     print("Playlist info:")
     for key, value in playlist_info.items():
         print(f"\t{key}: {value}")
-    print()
 
     playlist_title = playlist_info["playlist_title"]
 
@@ -145,7 +140,7 @@ def main():
         print("Couldn't save the playlist file, exiting.")
         logging.exception("can't write to %s; exception: %s", outfile_name, ex)
         sys.exit(1)
-    except RuntimeError as ex:
+    except Exception as ex:     # pylint: disable=broad-except
         print("Couldn't save the playlist file, exiting.")
         logging.exception("some error writing file: %s; %s",
                           sys.exc_info()[0], ex)
