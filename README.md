@@ -1,4 +1,5 @@
 # Recover YouTube playlists
+[![Lint and type checking](https://github.com/okonb/recover-youtube-playlists/actions/workflows/lint.yml/badge.svg)](https://github.com/okonb/recover-youtube-playlists/actions/workflows/lint.yml)
 [![Tests](https://github.com/okonb/recover-youtube-playlists/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/okonb/recover-youtube-playlists/actions/workflows/test.yml)
 
 Has YouTube unrightfully removed your beloved playlist you've been curating for the past 10 years?
