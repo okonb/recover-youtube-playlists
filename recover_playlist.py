@@ -8,7 +8,7 @@ from typing import Tuple, List
 from datetime import datetime
 from sanitize_filename import sanitize as fn_sanitize
 from bs4 import BeautifulSoup
-from util.extractor import Extractor
+from util.extractor import Extractor, InfoDict
 from util.argument_parser import get_argument_parser
 from util.extractor_factory import extractor_factory, extractor_version_map
 from util.file_writers import write_csv, write_excel_csv, write_json
@@ -84,7 +84,7 @@ def main():
                  datetime.fromtimestamp(file_date_created))
 
     playlist_title: str
-    playlist_info: dict
+    playlist_info: InfoDict     # guarantees the playlist_title field
     videos_list: List[Tuple[str, ...]]
 
     try:

@@ -1,8 +1,11 @@
 import logging
 from typing import List, Tuple
 from bs4 import BeautifulSoup, Tag, PageElement
-from .extractor import Extractor
+from .extractor import Extractor, InfoDict
 
+class VeeOneInfoDict(InfoDict):
+    playlist_description: str
+    reported_length: str
 
 class VeeOneExtractor(Extractor):
     def __init__(self, extra_info: bool, id_only: bool) -> None:
@@ -74,7 +77,7 @@ class VeeOneExtractor(Extractor):
                 videos_list.append((title, link))
         return videos_list
 
-    def get_playlist_info(self, soup: BeautifulSoup) -> dict:
+    def get_playlist_info(self, soup: BeautifulSoup) -> VeeOneInfoDict:
         videos_object: Tag | None = self._get_videos_object(soup)
         playlist_title: str
         _playlist_title_tag: Tag | None = videos_object.find("div", class_="playlist-title") # type: ignore
