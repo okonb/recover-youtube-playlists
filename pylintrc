@@ -1,0 +1,8 @@
+[MAIN]
+
+disable=
+    missing-docstring,
+    too-many-statements,
+    too-many-branches,
+    too-many-locals,
+    line-too-long,
