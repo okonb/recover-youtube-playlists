@@ -6,3 +6,4 @@ __pycache__/
 last.log
 /test/output/
 test/extra.json
+tmp_compare_csv.py

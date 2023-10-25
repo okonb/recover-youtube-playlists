@@ -14,7 +14,7 @@ What you get at the end is a human- and computer-readable file containing titles
 The goal of this project though is not uploading the recovered playlist back to your YouTube account. I can't recommend doing so as this might trigger YouTube's deletion evasion detection and get you in even more trouble...
 
 However if you were to risk it, you have two choices:
-- paid but convenient service (like soundiiz or tunemymusic, both unchecked by me)
+- paid but convenient service like soundiiz or tunemymusic (a little birdie told me that soundiiz works quite well with the `--just-links` option and is free for up to 200 videos...)
 - uploading using someone else's project (cumbersome, requires a Google cloud app and shuffling passcodes)
 
 This software is provided under the MIT license and the author does not guarantee it works correctly. [Full license](LICENSE)
