@@ -8,9 +8,9 @@ Now, press ctrl+s or right-click somewhere and chose "Save". In the new window, 
 
 ### Step two - extracting the playlist
 
-Make sure you have Python 3 installed.
+Make sure you have Python 3.9 (or later) installed.
 
-After cloning the repository, execute the appropriate setup command.
+After cloning the repository (or downloading zipped code and extracting it), execute the appropriate setup command.
 
 If you're on Linux, execute `make` in the repository root folder.
 
@@ -27,7 +27,7 @@ Let's say you want an excel-friendly csv file with additional information like v
 ```sh
 python3 recover_playlist.py --extra-info --format excel-csv /path/to/my_file.html
 ```
-After running for a couple seconds, this will produce a file named `playlist_name-current_date_and_time.csv` in the same directory.
+After running for a couple seconds, this will produce a file named `playlist_name-<current_date_and_time>.csv` in the same directory.
 
 Congrats, that's your recovered file! You can open it in a spreadsheet and browse your playlist, or try to put it back on YouTube (more info in the [README](../README.md)).
 

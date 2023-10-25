@@ -7,7 +7,7 @@ fi
 
 echo Testing for lxml...
 
-if ! `pip show lxml 2>/dev/null 1>/dev/null`
+if ! `pip3 show lxml 2>/dev/null 1>/dev/null`
 then
     echo "No lxml, proceeding without"
     NO_LXML_OPTION="--no-lxml";

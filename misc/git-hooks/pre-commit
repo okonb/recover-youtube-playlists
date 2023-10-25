@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
@@ -60,7 +60,7 @@ then
 fi
 
 cd test
-sh ./test.sh
+bash ./test.sh
 
 if test $? -ne 0
 then
